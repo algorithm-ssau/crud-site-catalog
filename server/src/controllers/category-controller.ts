@@ -12,18 +12,18 @@ class CategoryController {
     const _id: string = req.params.id;
     Category.findById(_id)
       .then(category => res.json(category))
-      .catch(err => res.json(err))         
+      .catch(err => res.json(err))
   }
-    
+
   create(req: Request, res: Response) {
     new Category(req.body).save()
       .then(category => res.json(category))
-      .catch(err => res.json(err))  
+      .catch(err => res.json(err))
   }
 
   update(req: Request, res: Response) {
     const _id: string = req.params.id;
-    Category.findByIdAndUpdate({ _id: _id }, { $set: req.body })
+    Category.findByIdAndUpdate({ _id }, { $set: req.body })
       .then(category => res.json(category))
       .catch(err => res.json(err))
   }
@@ -33,7 +33,7 @@ class CategoryController {
     Category.findOneAndDelete(_id)
       .then(category => res.json(category))
       .catch(err => res.json(err))
-  }    
+  }
 }
 
 export default CategoryController;

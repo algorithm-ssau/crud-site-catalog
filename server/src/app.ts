@@ -14,6 +14,10 @@ mongoose.connect("mongodb://localhost:27017/crud-site-catalog", { useNewUrlParse
   .then(() => console.log("connected"))
   .catch(err => console.log(err));
 
+const products = require("./routers/product-router");
+
+app.use("/products", products);
+
 app.listen( port, () => {
     console.log( `server started at http://localhost:${ port }` );
 });

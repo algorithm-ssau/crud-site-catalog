@@ -10,7 +10,7 @@ function App() {
         <Switch>
           <Route
             path="/"
-            render={MainPage}
+            render={(props) => <MainPage {...props} />}
           />
         </Switch>
       </BrowserRouter>

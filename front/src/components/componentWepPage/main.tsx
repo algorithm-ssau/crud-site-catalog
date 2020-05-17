@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 export interface ListItem {
   name: string;
-  id: number;
+  id: string;
 }
 
 
@@ -118,9 +118,13 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
   };
 
   const loadCurrentCatalog = async (catalogId: string) => {
+<<<<<<< HEAD
     const response = await fetch(`/catalogs/${catalogId}`);
+=======
+    const response = await fetch(`/category/${catalogId}`);
+>>>>>>> d912b5f314e43f6c99125abb3609e6652e2115c1
     const json = await response.json();
-    setProductItems(json.items);
+    setProductItems(json.category);
   };
 
 

@@ -29,9 +29,7 @@ class CategoryController {
 
   async get(req: Request, res: Response) {
     const _id: string = req.params.id;
-    const response = await Category.findById(_id).then(
-      (categories) => categories
-    );
+    const response = await Category.findById(_id.toString()).then((categories) => categories);
 
     const productsId = response.get("products");
     productsId.map(async (id: any) => {

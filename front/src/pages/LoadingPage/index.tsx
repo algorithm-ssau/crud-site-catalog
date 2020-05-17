@@ -8,7 +8,7 @@ import CatalogsContext, { CatalogContextProps } from './catalogsContext';
 const LoadingPage = () => {
     const context = useContext<CatalogContextProps>(CatalogsContext);
     const catalogs = context.state;
-    if (catalogs) {
+    if (catalogs && catalogs?.length > 0) {
         const history = useHistory();
         history.push(`/${catalogs[0].id}`);
     }

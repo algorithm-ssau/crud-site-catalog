@@ -108,9 +108,9 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
   };
 
   const loadCurrentCatalog = async (catalogId: string) => {
-    const response = await fetch(`/products/${catalogId}`);
+    const response = await fetch(`/category/${catalogId}`);
     const json = await response.json();
-    setProductItems(json.items);
+    setProductItems(json.category);
   };
 
   useEffect(() => {

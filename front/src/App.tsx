@@ -17,7 +17,7 @@ function App() {
       .then((reponse) => reponse.json());
     setCatalogs(
       jsonReponse.map((categoryItem: any) => ({
-        name: categoryItem.name,
+        ...categoryItem,
         id: categoryItem._id,
       })),
     );

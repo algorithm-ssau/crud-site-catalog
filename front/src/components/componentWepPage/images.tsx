@@ -58,7 +58,8 @@ export default function SpacingGrid({ products }: { products: GridItem[] }) {
   return (
     <>
       <CardItem
-            isOpen={isModalOpen}
+        isOpen={isModalOpen}
+        id={modalProps.id}
             price={modalProps.price}
             description={modalProps.description}
             onClose={modalProps.onClose}

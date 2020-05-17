@@ -1,5 +1,7 @@
 import { Request, Response } from "express-serve-static-core";
 import Product from "../schemas/product";
+import Category from "../schemas/category";
+import mongoose, { Types, isValidObjectId } from "mongoose";
 
 class ProductController {
   list(req: Request, res: Response) {
@@ -36,12 +38,32 @@ class ProductController {
       .catch(err => res.json(err))
   }
 
-  delete(req: Request, res: Response) {
+  async delete(req: Request, res: Response) {
     const _id: string = req.params.id;
+
+    const category = await Category.find().then(
+      (val: mongoose.Document[]) => val
+    );
+
+    const idList: any[] = [];
+    category.map((val: mongoose.Document) => {
+      idList.push(new mongoose.mongo.ObjectId(val.get("_id")));
+    });
+
+    idList.map(async val => {
+      await Category.update(
+        { _id: new mongoose.mongo.ObjectId("5e98c54fd1ecaa375060c84b") },
+        {
+          $pullAll: {
+            products: { $in: [val] },
+          },
+        }
+      );
+    })
+
     Product.findOneAndDelete(_id)
       .then(product => res.json(product))
       .catch(err => res.json(err))
   }
 }
-
 export default ProductController;

@@ -5,6 +5,7 @@ import * as H from 'history';
 import './styles.scss';
 
 export interface CardItemPrpos {
+    id: string,
     price: number;
     description: string;
     imageUrl: string;
@@ -12,8 +13,12 @@ export interface CardItemPrpos {
     onClose: (event: any) => void;
 }
 
+const deleteItem = (id: string) => {
+  fetch(`/products/${id}`, { method: "DELETE" });
+}
+
 const CardItem: React.FC<CardItemPrpos> = ({
-  price, description, imageUrl, isOpen, onClose,
+  id, price, description, imageUrl, isOpen, onClose,
 }) => (
   <Modal open={isOpen} onClose={onClose}>
     <div className="card-item">
@@ -33,6 +38,7 @@ const CardItem: React.FC<CardItemPrpos> = ({
           variant="contained"
           color="primary"
           className="card-item__button"
+          onClick={() => deleteItem(id)}
         >
           Удалить
 

@@ -18,10 +18,9 @@ class CategoryController {
       }
       await Promise.all(
         productsId.map(async (id: any) => {
-          Product.findById(id.toString()).then((pr: any) => {
+          await Product.findById(id.toString()).then((pr: any) => {
             const resp = replace(val, id.toString(), pr);
             listResp.push(resp);
-            console.log(listResp)
           });
         })
       );

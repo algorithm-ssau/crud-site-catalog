@@ -18,9 +18,8 @@ const LoadingPage = () => {
     return (
         <Grid
             item
-            xs={4}
             style={{
-                justifyItems: 'center', alignContent: 'center', color: 'grey', height: '100vh',
+                justifyContent: 'center', alignItems: 'center', color: 'grey', height: '100vh', display: 'flex', fontSize: 50
             }}
         >
             <span>Загрузка...</span>

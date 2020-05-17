@@ -17,7 +17,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function MediaCard() {
+export default function MediaCard({ image, title }: { image: string; title: string }) {
   const classes = useStyles();
 
   return (
@@ -25,8 +25,8 @@ export default function MediaCard() {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image=""
-          title=""
+          image={image}
+          title={title}
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">

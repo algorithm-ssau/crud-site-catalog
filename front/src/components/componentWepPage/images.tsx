@@ -38,8 +38,7 @@ export default function SpacingGrid({ products }: { products: GridItem[] }) {
       price: item.price,
       description: item.description,
       onClose: () => setModalOpen(false),
-      imageUrl:
-        'https://assets.change.org/photos/9/ti/kt/OZTikTiXHKSEJIl-800x450-noPad.jpg?1549309383',
+      imageUrl: item.imagePath,
     });
     setModalOpen(true);
   };
@@ -48,7 +47,7 @@ export default function SpacingGrid({ products }: { products: GridItem[] }) {
   const renderGridItem = (gridItems: GridItem[]) => gridItems.map((gridItem) => (
     <Grid item>
       <Paper className={classes.paper} onClick={() => handleOpenModal(gridItem)}>
-        <MediaCard />
+        <MediaCard title={gridItem.name} image={gridItem.imagePath} />
       </Paper>
     </Grid>
   ));

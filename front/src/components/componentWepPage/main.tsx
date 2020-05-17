@@ -20,7 +20,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { useHistory } from 'react-router-dom';
 import { GridSpacing } from '@material-ui/core';
 import Tittle from './tittle';
-import Example from './images';
+import Example, { GridItem } from './images';
 
 
 const drawerWidth = 240;
@@ -101,7 +101,7 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [productsItems, setProductItems] = useState<any[]>([]); // Просто надо будет замапить
+  const [productsItems, setProductItems] = useState<GridItem[]>([]); // Просто надо будет замапить
   const [categoryItem, setCategoryItem] = useState<ListItem>();
 
   const handleDrawerOpen = () => {
@@ -119,6 +119,7 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
       json.products.map((producsItem: any) => ({
         ...producsItem,
         id: producsItem._id,
+        imagePath: 'https://assets.change.org/photos/9/ti/kt/OZTikTiXHKSEJIl-800x450-noPad.jpg?1549309383',
       })),
     );
   };

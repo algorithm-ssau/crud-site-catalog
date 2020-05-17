@@ -36,6 +36,7 @@ export default function SpacingGrid({ products }: { products: GridItem[] }) {
   const [isModalOpen, setModalOpen] = useState(false);
   const handleOpenModal = (item: GridItem) => {
     setModalProps({
+      id: item.id,
       price: item.price,
       description: item.description,
       onClose: () => setModalOpen(false),

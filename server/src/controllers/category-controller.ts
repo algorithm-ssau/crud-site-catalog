@@ -14,12 +14,15 @@ class CategoryController {
     let i = 0;
     await respon.map((val) => {
       const productsId = val.get("products");
+      if (productsId.length === 0) {
+        res.json([]);
+      }
       productsId.map((id: any) => {
         Product.findById(id.toString()).then((pr: any) => {
           const resp = replace(val, id.toString(), pr);
           listResp.push(resp);
           i++;
-          if (i === respon.length + 1) {
+          if (i === respon.length) {
             res.json(_.uniq(listResp));
           }
         });
@@ -29,7 +32,9 @@ class CategoryController {
 
   async get(req: Request, res: Response) {
     const _id: string = req.params.id;
-    const response = await Category.findById(_id.toString()).then((categories) => categories);
+    const response = await Category.findById(_id.toString()).then(
+      (categories) => categories
+    );
 
     const productsId = response.get("products");
     productsId.map(async (id: any) => {

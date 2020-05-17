@@ -39,41 +39,40 @@ export default function SpacingGrid({ products }: { products: GridItem[] }) {
       description: item.description,
       onClose: () => setModalOpen(false),
       imageUrl:
-        "https://assets.change.org/photos/9/ti/kt/OZTikTiXHKSEJIl-800x450-noPad.jpg?1549309383",
+        'https://assets.change.org/photos/9/ti/kt/OZTikTiXHKSEJIl-800x450-noPad.jpg?1549309383',
     });
-  setModalOpen(true);
-};
+    setModalOpen(true);
+  };
 
 
-  const renderGridItem = (gridItems: GridItem[]) =>
-    gridItems.map((gridItem) => (
-      <Grid item>
-        <Paper className={classes.paper} onClick={() => handleOpenModal(gridItem)}>
-          <MediaCard />
-        </Paper>
-      </Grid>
-    ));
+  const renderGridItem = (gridItems: GridItem[]) => gridItems.map((gridItem) => (
+    <Grid item>
+      <Paper className={classes.paper} onClick={() => handleOpenModal(gridItem)}>
+        <MediaCard />
+      </Paper>
+    </Grid>
+  ));
 
 
   return (
     <>
       <CardItem
-            isOpen={isModalOpen}
-            price={modalProps.price}
-            description={modalProps.description}
-            onClose={modalProps.onClose}
-            imageUrl={modalProps.imageUrl}
+        isOpen={isModalOpen}
+        price={modalProps.price}
+        description={modalProps.description}
+        onClose={modalProps.onClose}
+        imageUrl={modalProps.imageUrl}
       />
-      
-    <Grid container className={classes.root} spacing={7}>
-      <Grid item xs={12}>
-        <Grid container spacing={spacing}>
-          
 
-          {renderGridItem(products)}
+      <Grid container className={classes.root} spacing={7}>
+        <Grid item xs={12}>
+          <Grid container spacing={spacing}>
+
+
+            {renderGridItem(products)}
+          </Grid>
         </Grid>
       </Grid>
-      </Grid>
-      </>
+    </>
   );
 }

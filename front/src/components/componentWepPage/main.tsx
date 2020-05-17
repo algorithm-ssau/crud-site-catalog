@@ -85,6 +85,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 export interface ListItem {
   name: string;
   id: string;
+  description: string;
+  products: any[];
 }
 
 
@@ -100,6 +102,7 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [productsItems, setProductItems] = useState<any[]>([]); // Просто надо будет замапить
+  const [categoryItem, setCategoryItem] = useState<ListItem>();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -124,6 +127,7 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
   useEffect(() => {
     if (!id) return;
     loadCurrentCatalog(id);
+    setCategoryItem(dataListItem.find((categoryId) => categoryId.id === id));
   }, [id]);
 
 
@@ -192,7 +196,7 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
         })}
       >
         <div className={classes.drawerHeader} />
-        <Tittle name={`Это каталог с ID: ${id}`} description="Заглушка необходимо поменять!" />
+        <Tittle name={categoryItem?.name} description={categoryItem?.description} />
 
         <Example products={productsItems} />
 

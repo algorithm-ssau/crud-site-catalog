@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 // eslint-disable-next-line no-unused-vars
 import * as H from 'history';
 import { useHistory, useParams } from 'react-router-dom';
+import { Grid } from '@material-ui/core';
 import MainPageComponent, { ListItem } from '../../components/componentWepPage/main';
+import CatalogsContext, { CatalogContextProps } from '../LoadingPage/catalogsContext';
 
 interface MainPageProps {
   history: H.History;
@@ -12,27 +14,34 @@ interface MainPageProps {
 const dataListItem: ListItem[] = [
   {
     name: 'Category1',
-    id: 1,
+    id: '1',
   },
   {
     name: 'Category2',
-    id: 2,
+    id: '2',
   },
   {
     name: 'Category3',
-    id: 3,
+    id: '3',
   },
 ];
 
 const MainPage: React.FC<MainPageProps> = () => {
   const history = useHistory();
   const { id } = useParams();
+
   const goToCategory = (idCategory: number) => {
     history.push(`${idCategory}`);
   };
 
+  const catalogs = useContext<CatalogContextProps>(CatalogsContext).state ?? [];
+
+  if (!catalogs?.length) {
+    history.push('/');
+  }
+
   return (
-    <MainPageComponent dataListItem={dataListItem} changeLocation={goToCategory} id={id} />
+    <MainPageComponent dataListItem={catalogs} changeLocation={goToCategory} id={id} />
   );
 };
 

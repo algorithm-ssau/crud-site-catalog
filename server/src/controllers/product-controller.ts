@@ -4,8 +4,16 @@ import Product from "../schemas/product";
 class ProductController {
   list(req: Request, res: Response) {
     Product.find()
-      .then(products => res.json(products))
+      .then(products => {
+        res.json(products)
+      })
       .catch(err => res.json(err))
+  }
+
+  getById(id: string): Document {
+    let a;
+    Product.findById(id).then(product => a = product);
+    return a;
   }
 
   get(req: Request, res: Response) {

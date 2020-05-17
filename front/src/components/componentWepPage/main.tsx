@@ -16,12 +16,11 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 
-import SpacingGrid from "./images";
 import ListItemText from '@material-ui/core/ListItemText';
 import { useHistory } from 'react-router-dom';
+import { GridSpacing } from '@material-ui/core';
 import Tittle from './tittle';
 import Example from './images';
-import { GridSpacing } from '@material-ui/core';
 
 
 const drawerWidth = 240;
@@ -89,21 +88,14 @@ export interface ListItem {
 }
 
 
-
-
 // eslint-disable-next-line max-len
 export default function MainPageComponent({ id, dataListItem, changeLocation }:
   {
     id: string | undefined,
     dataListItem: ListItem[],
     changeLocation: Function,
-    
-  }) 
-  
 
-  
-  
-  {
+  }) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -118,29 +110,21 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
   };
 
   const loadCurrentCatalog = async (catalogId: string) => {
-<<<<<<< HEAD
-    const response = await fetch(`/catalogs/${catalogId}`);
-=======
     const response = await fetch(`/category/${catalogId}`);
->>>>>>> d912b5f314e43f6c99125abb3609e6652e2115c1
     const json = await response.json();
-    setProductItems(json.category);
+    setProductItems(
+      json.products.map((producsItem: any) => ({
+        ...producsItem,
+        id: producsItem._id,
+      })),
+    );
   };
 
 
-
-
-
-useEffect(() => {
+  useEffect(() => {
     if (!id) return;
     loadCurrentCatalog(id);
-   
-    
   }, [id]);
-
-
- 
-
 
 
   const renderListItem = (listItems: ListItem[]) => listItems.map((listItem) => (
@@ -148,8 +132,6 @@ useEffect(() => {
       <ListItemText onClick={() => changeLocation(listItem.id)} primary={listItem.name} />
     </ListItem>
   ));
-
- 
 
 
   return (
@@ -211,8 +193,8 @@ useEffect(() => {
       >
         <div className={classes.drawerHeader} />
         <Tittle name={`Это каталог с ID: ${id}`} description="Заглушка необходимо поменять!" />
-     
-        <Example products={productsItems}/>
+
+        <Example products={productsItems} />
 
 
       </main>

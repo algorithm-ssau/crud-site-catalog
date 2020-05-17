@@ -11,23 +11,22 @@ class CategoryController {
   async list(req: Request, res: Response) {
     const listResp: any[] = [];
     const respon = await Category.find().then((categories) => categories);
-    let i = 0;
-    await respon.map((val) => {
+    await Promise.all(respon.map(async (val) => {
       const productsId = val.get("products");
       if (productsId.length === 0) {
-        res.json([]);
+        listResp.push(val);
       }
-      productsId.map((id: any) => {
-        Product.findById(id.toString()).then((pr: any) => {
-          const resp = replace(val, id.toString(), pr);
-          listResp.push(resp);
-          i++;
-          if (i === respon.length) {
-            res.json(_.uniq(listResp));
-          }
-        });
-      });
-    });
+      await Promise.all(
+        productsId.map(async (id: any) => {
+          Product.findById(id.toString()).then((pr: any) => {
+            const resp = replace(val, id.toString(), pr);
+            listResp.push(resp);
+            console.log(listResp)
+          });
+        })
+      );
+    }));
+    res.json(listResp);
   }
 
   async get(req: Request, res: Response) {

@@ -48,7 +48,8 @@
         "no-unused-vars": "off",
         "react/jsx-props-no-spreading": [
             "off"
-        ]
+        ],
+        "no-underscore-dangle": "off"
     },
     "settings": {
         "import/resolver": {

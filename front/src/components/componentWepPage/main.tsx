@@ -84,7 +84,7 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 
 export interface ListItem {
   name: string;
-  id: number;
+  id: string;
 }
 
 // eslint-disable-next-line max-len

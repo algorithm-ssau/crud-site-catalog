@@ -14,19 +14,25 @@ class CategoryController {
       productsId.map(async (id: any) => {
         const product = await Product.findById(id.toString()).then(
           (pr: any) => {
-            const a = replace(val, id.toString(), pr);
-            res.json(a);
+            const resp = replace(val, id.toString(), pr);
+            res.json(resp);
           }
         );
       });
     });
   }
 
-  get(req: Request, res: Response) {
+  async get(req: Request, res: Response) {
     const _id: string = req.params.id;
-    Category.findById(_id)
-      .then((category) => res.json(category))
-      .catch((err) => res.json(err));
+    const response = await Category.findById(_id).then((categories) => categories);
+
+    const productsId = response.get("products");
+    productsId.map(async (id: any) => {
+      const product = await Product.findById(id.toString()).then((pr: any) => {
+        const resp = replace(response, id.toString(), pr);
+        res.json(resp);
+      });
+    });
   }
 
   create(req: Request, res: Response) {

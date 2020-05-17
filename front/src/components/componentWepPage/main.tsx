@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import clsx from 'clsx';
 import {
   makeStyles, useTheme, Theme, createStyles,
@@ -18,6 +18,7 @@ import ListItem from '@material-ui/core/ListItem';
 
 
 import ListItemText from '@material-ui/core/ListItemText';
+import { useHistory } from 'react-router-dom';
 import Tittle from './tittle';
 import Example from './images';
 
@@ -81,10 +82,22 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
   },
 }));
 
-export default function MainPageComponent() {
+export interface ListItem {
+  name: string;
+  id: number;
+}
+
+// eslint-disable-next-line max-len
+export default function MainPageComponent({ id, dataListItem, changeLocation }:
+  {
+    id: string | undefined,
+    dataListItem: ListItem[],
+    changeLocation: Function
+  }) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+  const [productsItems, setProductItems] = useState<any[]>(); // Просто надо будет замапить
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -93,6 +106,23 @@ export default function MainPageComponent() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const loadCurrentCatalog = async (catalogId: string) => {
+    const response = await fetch(`/products/${catalogId}`);
+    const json = await response.json();
+    setProductItems(json.items);
+  };
+
+  useEffect(() => {
+    if (!id) return;
+    loadCurrentCatalog(id);
+  }, [id]);
+
+  const renderListItem = (listItems: ListItem[]) => listItems.map((listItem) => (
+    <ListItem button>
+      <ListItemText onClick={() => changeLocation(listItem.id)} primary={listItem.name} />
+    </ListItem>
+  ));
 
   return (
     <div className={classes.root}>
@@ -135,25 +165,7 @@ export default function MainPageComponent() {
         <Divider />
 
         <List component="nav" aria-label="main mailbox folders">
-          <ListItem button>
-
-            <ListItemText primary="Category1" />
-          </ListItem>
-
-
-          <ListItem button>
-            <ListItemText primary="Category2" />
-          </ListItem>
-
-
-          <ListItem button>
-            <ListItemText primary="Category3" />
-          </ListItem>
-
-
-          <ListItem button>
-            <ListItemText primary="Category4" />
-          </ListItem>
+          {renderListItem(dataListItem)}
         </List>
 
 
@@ -170,7 +182,7 @@ export default function MainPageComponent() {
         })}
       >
         <div className={classes.drawerHeader} />
-        <Tittle />
+        <Tittle name={`Это каталог с ID: ${id}`} description="Заглушка необходимо поменять!" />
         <Example />
 
 

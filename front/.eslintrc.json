@@ -24,21 +24,42 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "react/jsx-filename-extension" : [1, { "extensions": [".ts", ".tsx"] }],
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".ts",
+                    ".tsx"
+                ]
+            }
+        ],
         "linebreak-style": "off",
-        "import/extensions": ["error", "ignorePackages", {
-            "js": "never",
-            "jsx": "never",
-            "ts": "never",
-            "tsx": "never",
-            "mjs": "never"
-          }]
+        "import/extensions": [
+            "error",
+            "ignorePackages",
+            {
+                "js": "never",
+                "jsx": "never",
+                "ts": "never",
+                "tsx": "never",
+                "mjs": "never"
+            }
+        ],
+        "no-unused-vars": "off",
+        "react/jsx-props-no-spreading": [
+            "off"
+        ]
     },
     "settings": {
         "import/resolver": {
             "node": {
-              "extensions": [".js", ".jsx", ".ts", ".tsx"]
+                "extensions": [
+                    ".js",
+                    ".jsx",
+                    ".ts",
+                    ".tsx"
+                ]
             }
-          }
+        }
     }
 }

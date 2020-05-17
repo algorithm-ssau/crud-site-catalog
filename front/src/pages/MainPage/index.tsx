@@ -11,20 +11,6 @@ interface MainPageProps {
   // smth props
 }
 
-const dataListItem: ListItem[] = [
-  {
-    name: 'Category1',
-    id: '1',
-  },
-  {
-    name: 'Category2',
-    id: '2',
-  },
-  {
-    name: 'Category3',
-    id: '3',
-  },
-];
 
 const MainPage: React.FC<MainPageProps> = () => {
   const history = useHistory();

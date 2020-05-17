@@ -1,8 +1,8 @@
 import React from 'react';
 
 export interface TitleProps {
-  name: string;
-  description: string;
+  name: string | undefined;
+  description: string | undefined;
 }
 
 export default function Tittle({ name, description }: TitleProps) {

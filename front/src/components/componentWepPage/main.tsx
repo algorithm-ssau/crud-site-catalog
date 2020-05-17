@@ -20,7 +20,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import { useHistory } from 'react-router-dom';
 import { GridSpacing } from '@material-ui/core';
 import Tittle from './tittle';
-import Example from './images';
+import Example, { GridItem } from './images';
 
 
 const drawerWidth = 240;
@@ -85,6 +85,8 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
 export interface ListItem {
   name: string;
   id: string;
+  description: string;
+  products: any[];
 }
 
 
@@ -99,7 +101,8 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [productsItems, setProductItems] = useState<any[]>([]); // Просто надо будет замапить
+  const [productsItems, setProductItems] = useState<GridItem[]>([]); // Просто надо будет замапить
+  const [categoryItem, setCategoryItem] = useState<ListItem>();
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -116,6 +119,7 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
       json.products.map((producsItem: any) => ({
         ...producsItem,
         id: producsItem._id,
+        imagePath: 'https://assets.change.org/photos/9/ti/kt/OZTikTiXHKSEJIl-800x450-noPad.jpg?1549309383',
       })),
     );
   };
@@ -124,6 +128,7 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
   useEffect(() => {
     if (!id) return;
     loadCurrentCatalog(id);
+    setCategoryItem(dataListItem.find((categoryId) => categoryId.id === id));
   }, [id]);
 
 
@@ -192,7 +197,7 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
         })}
       >
         <div className={classes.drawerHeader} />
-        <Tittle name={`Это каталог с ID: ${id}`} description="Заглушка необходимо поменять!" />
+        <Tittle name={categoryItem?.name} description={categoryItem?.description} />
 
         <Example products={productsItems} />
 

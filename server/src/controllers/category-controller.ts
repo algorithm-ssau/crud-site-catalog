@@ -3,28 +3,35 @@ import Category from "../schemas/category";
 import ProductController from "./product-controller";
 import Product from "../schemas/product";
 import { Schema } from "mongoose";
+import * as _ from "lodash";
 
 class CategoryController {
   productController = new ProductController();
 
   async list(req: Request, res: Response) {
-    const response = await Category.find().then((categories) => categories);
-    const prod = response.map(async (val) => {
+    const listResp: any[] = [];
+    const respon = await Category.find().then((categories) => categories);
+    let i = 0;
+    await respon.map((val) => {
       const productsId = val.get("products");
-      productsId.map(async (id: any) => {
-        const product = await Product.findById(id.toString()).then(
-          (pr: any) => {
-            const resp = replace(val, id.toString(), pr);
-            res.json(resp);
+      productsId.map((id: any) => {
+        Product.findById(id.toString()).then((pr: any) => {
+          const resp = replace(val, id.toString(), pr);
+          listResp.push(resp);
+          i++;
+          if (i === respon.length + 1) {
+            res.json(_.uniq(listResp));
           }
-        );
+        });
       });
     });
   }
 
   async get(req: Request, res: Response) {
     const _id: string = req.params.id;
-    const response = await Category.findById(_id).then((categories) => categories);
+    const response = await Category.findById(_id).then(
+      (categories) => categories
+    );
 
     const productsId = response.get("products");
     productsId.map(async (id: any) => {

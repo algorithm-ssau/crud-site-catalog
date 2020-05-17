@@ -1,9 +1,9 @@
-import React from 'react';
+
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import Grid, { GridSpacing } from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import MediaCard from './card';
-
+import React, { useState, useEffect } from 'react';
 const useStyles = makeStyles((theme: Theme) => createStyles({
   root: {
     flexGrow: 1,
@@ -16,10 +16,24 @@ const useStyles = makeStyles((theme: Theme) => createStyles({
     padding: theme.spacing(7),
   },
 }));
+export interface GridItem {
+  name: string;
+  id: number;
+}
 
-export default function SpacingGrid() {
+export default function SpacingGrid({products}:{products:GridItem[]}) {
+  
   const [spacing] = React.useState<GridSpacing>(7);
   const classes = useStyles();
+  const [open, setOpen] = React.useState(false);
+
+
+  const renderGridItem = (gridItems: GridItem[]) => gridItems.map((gridItem) => (
+    <Grid item>
+            <Paper className={classes.paper}><MediaCard /></Paper>
+          </Grid>
+  ));
+
 
 
   return (
@@ -27,17 +41,8 @@ export default function SpacingGrid() {
       <Grid item xs={12}>
         <Grid container spacing={spacing}>
 
-          <Grid item>
-            <Paper className={classes.paper}><MediaCard /></Paper>
-          </Grid>
+         {renderGridItem(products)}
 
-          <Grid item>
-            <Paper className={classes.paper}><MediaCard /></Paper>
-          </Grid>
-
-          <Grid item>
-            <Paper className={classes.paper}><MediaCard /></Paper>
-          </Grid>
         </Grid>
       </Grid>
     </Grid>
@@ -45,3 +50,8 @@ export default function SpacingGrid() {
 
   );
 }
+
+
+
+
+

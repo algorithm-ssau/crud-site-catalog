@@ -16,11 +16,12 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 
-
+import SpacingGrid from "./images";
 import ListItemText from '@material-ui/core/ListItemText';
 import { useHistory } from 'react-router-dom';
 import Tittle from './tittle';
 import Example from './images';
+import { GridSpacing } from '@material-ui/core';
 
 
 const drawerWidth = 240;
@@ -87,17 +88,26 @@ export interface ListItem {
   id: number;
 }
 
+
+
+
 // eslint-disable-next-line max-len
 export default function MainPageComponent({ id, dataListItem, changeLocation }:
   {
     id: string | undefined,
     dataListItem: ListItem[],
-    changeLocation: Function
-  }) {
+    changeLocation: Function,
+    
+  }) 
+  
+
+  
+  
+  {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const [productsItems, setProductItems] = useState<any[]>(); // Просто надо будет замапить
+  const [productsItems, setProductItems] = useState<any[]>([]); // Просто надо будет замапить
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -108,21 +118,35 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
   };
 
   const loadCurrentCatalog = async (catalogId: string) => {
-    const response = await fetch(`/products/${catalogId}`);
+    const response = await fetch(`/catalogs/${catalogId}`);
     const json = await response.json();
     setProductItems(json.items);
   };
 
-  useEffect(() => {
+
+
+
+
+useEffect(() => {
     if (!id) return;
     loadCurrentCatalog(id);
+   
+    
   }, [id]);
+
+
+ 
+
+
 
   const renderListItem = (listItems: ListItem[]) => listItems.map((listItem) => (
     <ListItem button>
       <ListItemText onClick={() => changeLocation(listItem.id)} primary={listItem.name} />
     </ListItem>
   ));
+
+ 
+
 
   return (
     <div className={classes.root}>
@@ -183,7 +207,8 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
       >
         <div className={classes.drawerHeader} />
         <Tittle name={`Это каталог с ID: ${id}`} description="Заглушка необходимо поменять!" />
-        <Example />
+     
+        <Example products={productsItems}/>
 
 
       </main>

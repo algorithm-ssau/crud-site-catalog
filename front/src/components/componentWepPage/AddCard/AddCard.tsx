@@ -14,7 +14,7 @@ import { red } from '@material-ui/core/colors';
 import List from './list';
 import AddButton from './AddButton';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
+import TextBox from './TextBox';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -74,7 +74,7 @@ export default function RecipeReviewCard() {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Description</Typography>
+          <Typography paragraph><TextBox/></Typography>
      
         </CardContent>
       </Collapse>

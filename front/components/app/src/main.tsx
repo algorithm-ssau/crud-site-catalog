@@ -14,8 +14,9 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 
-
-
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import AddCard from './card';
 import ListItemText from '@material-ui/core/ListItemText';
 import Tittle from './tittle';
 import Example from './images'
@@ -90,7 +91,7 @@ export default function PersistentDrawerLeft() {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
+  const [anchorEl, setAnchorEl] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -98,6 +99,15 @@ export default function PersistentDrawerLeft() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+  const handleClick = () => {
+    setAnchorEl(true);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(false);
+  };
+
+
 
   return (
     <div className={classes.root}>
@@ -169,9 +179,24 @@ export default function PersistentDrawerLeft() {
 
         <Divider />
         <List component="nav" aria-label="main mailbox folders">
-        <ListItem button>
-         <ListItemText primary="Add product" />
-        </ListItem>
+       
+        <ListItem button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+       Add Product
+      </ListItem>
+      <Menu
+        id="simple-menu"
+      //  anchorEl={anchorEl}
+        keepMounted
+        open={Boolean(anchorEl)}
+        onClose={handleClose}
+      >
+        <MenuItem onClick={handleClose}><AddCard/></MenuItem>
+       
+      </Menu>
+
+
+      
+    
         </List>
       </Drawer>
       <main

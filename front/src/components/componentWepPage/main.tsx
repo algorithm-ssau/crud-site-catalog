@@ -15,13 +15,14 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
-
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import { useHistory } from 'react-router-dom';
 import { GridSpacing } from '@material-ui/core';
 import Tittle from './tittle';
 import Example, { GridItem } from './images';
-
+import AddCard from './AddCard/AddCard';
 
 const drawerWidth = 240;
 
@@ -103,13 +104,20 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
   const [open, setOpen] = React.useState(false);
   const [productsItems, setProductItems] = useState<GridItem[]>([]); // Просто надо будет замапить
   const [categoryItem, setCategoryItem] = useState<ListItem>();
-
+  const [anchorEl, setAnchorEl] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
 
   const handleDrawerClose = () => {
     setOpen(false);
+  };
+  const handleClick = () => {
+    setAnchorEl(true);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(false);
   };
 
   const loadCurrentCatalog = async (catalogId: string) => {
@@ -185,11 +193,26 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
 
 
         <Divider />
-        <List component="nav" onClick={() => console.log('ХУЦЦЙ')} aria-label="main mailbox folders">
-          <ListItem button>
-            <ListItemText primary="Add product" />
-          </ListItem>
-        </List>
+        <List component="nav" aria-label="main mailbox folders">
+       
+       <ListItem button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+      Add Product
+     </ListItem>
+     <Menu
+       id="simple-menu"
+     // anchorEl={anchorEl}
+       keepMounted
+       open={Boolean(anchorEl)}
+       onClose={handleClose}
+     >
+       <MenuItem onClick={handleClose}><AddCard/></MenuItem>
+      
+     </Menu>
+
+
+     
+   
+       </List>
       </Drawer>
       <main
         className={clsx(classes.content, {

@@ -54,9 +54,12 @@ export default function RecipeReviewCard() {
   
    
       />
-      <CardMedia
-   
+       <CardMedia
+        className={classes.media}
+        image=""
+        title="Image"
       />
+     
      
       <CardActions disableSpacing>
    <AddImage/>

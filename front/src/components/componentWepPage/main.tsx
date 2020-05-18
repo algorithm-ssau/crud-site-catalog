@@ -200,12 +200,12 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
      </ListItem>
      <Menu
        id="simple-menu"
-     // anchorEl={anchorEl}
+      //anchorEl={anchorEl}
        keepMounted
        open={Boolean(anchorEl)}
        onClose={handleClose}
      >
-       <MenuItem onClick={handleClose}><AddCard/></MenuItem>
+       <MenuItem><AddCard/></MenuItem>
       
      </Menu>
 

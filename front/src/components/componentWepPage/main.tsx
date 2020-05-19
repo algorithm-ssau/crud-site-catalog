@@ -22,7 +22,7 @@ import { useHistory } from 'react-router-dom';
 import { GridSpacing } from '@material-ui/core';
 import Tittle from './tittle';
 import Example, { GridItem } from './images';
-import AddCard from './AddCard/AddCard';
+import AddCard from './Form/FormContainer';
 
 const drawerWidth = 240;
 

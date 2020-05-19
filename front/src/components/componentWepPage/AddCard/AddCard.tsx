@@ -18,7 +18,7 @@ import TextBox from "./TextBox";
 import App from './App';
 const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 450
+    maxWidth: 500
   },
   media: {
     height: 0,

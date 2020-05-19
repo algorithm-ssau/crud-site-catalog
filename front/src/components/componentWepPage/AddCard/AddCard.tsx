@@ -1,42 +1,42 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import clsx from 'clsx';
-import Card from '@material-ui/core/Card';
-import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
-import CardContent from '@material-ui/core/CardContent';
-import CardActions from '@material-ui/core/CardActions';
-import Collapse from '@material-ui/core/Collapse';
-import AddImage from './AddImage';
-import IconButton from '@material-ui/core/IconButton';
-import Typography from '@material-ui/core/Typography';
-import { red } from '@material-ui/core/colors';
-import List from './list';
-import AddButton from './AddButton';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import TextBox from './TextBox';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import clsx from "clsx";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
 
-const useStyles = makeStyles((theme) => ({
+import CardContent from "@material-ui/core/CardContent";
+import CardActions from "@material-ui/core/CardActions";
+import Collapse from "@material-ui/core/Collapse";
+
+import IconButton from "@material-ui/core/IconButton";
+import Typography from "@material-ui/core/Typography";
+import { red } from "@material-ui/core/colors";
+import List from "./list";
+import AddButton from "./AddButton";
+import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import TextBox from "./TextBox";
+import App from './App';
+const useStyles = makeStyles(theme => ({
   root: {
-    maxWidth: 345,
+    maxWidth: 450
   },
   media: {
     height: 0,
-    paddingTop: '56.25%', // 16:9
+    paddingTop: "56.25%" // 16:9
   },
   expand: {
-    transform: 'rotate(0deg)',
-    marginLeft: 'auto',
-    transition: theme.transitions.create('transform', {
-      duration: theme.transitions.duration.shortest,
-    }),
+    transform: "rotate(0deg)",
+    marginLeft: "auto",
+    transition: theme.transitions.create("transform", {
+      duration: theme.transitions.duration.shortest
+    })
   },
   expandOpen: {
-    transform: 'rotate(180deg)',
+    transform: "rotate(180deg)"
   },
   avatar: {
-    backgroundColor: red[500],
-  },
+    backgroundColor: red[500]
+  }
 }));
 
 export default function RecipeReviewCard() {
@@ -49,24 +49,17 @@ export default function RecipeReviewCard() {
 
   return (
     <Card className={classes.root}>
-      <List/>
-      <CardHeader
-  
-   
-      />
-       <CardMedia
-        className={classes.media}
-        image=""
-        title="Image"
-      />
-     
-     
+      <List />
+      <CardHeader />
+    
+
       <CardActions disableSpacing>
-   <AddImage/>
-      <AddButton/>
+       
+<App/>
+        <AddButton />
         <IconButton
           className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
+            [classes.expandOpen]: expanded
           })}
           onClick={handleExpandClick}
           aria-expanded={expanded}
@@ -77,8 +70,9 @@ export default function RecipeReviewCard() {
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph><TextBox/></Typography>
-     
+          <Typography paragraph>
+            <TextBox />
+          </Typography>
         </CardContent>
       </Collapse>
     </Card>

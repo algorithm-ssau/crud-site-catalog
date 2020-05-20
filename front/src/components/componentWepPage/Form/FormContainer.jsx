@@ -46,6 +46,7 @@ class FormContainer extends Component {
       newProduct: {
        
         category: "",
+        price:"",
         image:"",
         about: ""
       },
@@ -54,7 +55,7 @@ class FormContainer extends Component {
      
     };
     this.handleTextArea = this.handleTextArea.bind(this);
-  
+    this.handlePrice = this.handlePrice.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleClearForm = this.handleClearForm.bind(this);
     this.handleFile=this.handleFile.bind(this);
@@ -139,6 +140,18 @@ class FormContainer extends Component {
        
 
 
+  handlePrice(e) {
+    let value = e.target.value;
+    this.setState(
+      prevState => ({
+        newProduct: {
+          ...prevState.newProduct,
+          price: value
+        }
+      }),
+      () => console.log(this.state.newProduct)
+    );
+  }
 
 
 
@@ -205,6 +218,18 @@ class FormContainer extends Component {
           handleChange={this.handleInput}
         />
        
+       <Input
+          inputType={"number"}
+          title={"Price"}
+          name={"price"}
+          value={this.state.newProduct.price}
+          placeholder={"Enter price"}
+          handleChange={this.handlePrice}
+        />{" "}
+
+
+
+
        <Input
           inputType={"file"}
           title={"Select file"}

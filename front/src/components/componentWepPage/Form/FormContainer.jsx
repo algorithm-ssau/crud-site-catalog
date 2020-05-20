@@ -12,10 +12,10 @@ class FormContainer extends Component {
     super(props);
 
     this.state = {
-      newUser: {
+      newProduct: {
        
         category: "",
-        //image:"",
+        image:"",
         about: ""
       },
 
@@ -26,7 +26,7 @@ class FormContainer extends Component {
   
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleClearForm = this.handleClearForm.bind(this);
-    
+    this.handleFile=this.handleFile.bind(this);
     this.handleInput = this.handleInput.bind(this);
   }
 
@@ -38,26 +38,43 @@ class FormContainer extends Component {
     let name = e.target.name;
     this.setState(
       prevState => ({
-        newUser: {
-          ...prevState.newUser,
+        newProduct: {
+          ...prevState.newProduct,
           [name]: value
         }
       }),
-      () => console.log(this.state.newUser)
+      () => console.log(this.state.newProduct)
     );
   }
+
+
+  handleFile(e) {
+    let value = e.target.value;
+    this.setState(
+      prevState => ({
+        newProduct: {
+          ...prevState.newProduct,
+          image: value
+        }
+      }),
+      () => console.log(this.state.newProduct)
+    );
+  }
+
+
+
 
   handleTextArea(e) {
     console.log("Inside handleTextArea");
     let value = e.target.value;
     this.setState(
       prevState => ({
-        newUser: {
-          ...prevState.newUser,
+        newProduct: {
+          ...prevState.newProduct,
           about: value
         }
       }),
-      () => console.log(this.state.newUser)
+      () => console.log(this.state.newProduct)
     );
   }
 
@@ -67,7 +84,7 @@ class FormContainer extends Component {
 
   handleFormSubmit(e) {
     e.preventDefault();
-    let userData = this.state.newUser;
+    let userData = this.state.newProduct;
 
     fetch("http://example.com", {
       method: "POST",
@@ -86,10 +103,10 @@ class FormContainer extends Component {
   handleClearForm(e) {
     e.preventDefault();
     this.setState({
-      newUser: {
+      newProduct: {
         
         category: "",
-       //image:"",
+        image:"",
         about: ""
       }
     });
@@ -104,17 +121,23 @@ class FormContainer extends Component {
           title={"Category"}
           name={"category"}
           options={this.state.categoryOptions}
-          value={this.state.newUser.category}
+          value={this.state.newProduct.category}
           placeholder={"Select Category"}
           handleChange={this.handleInput}
         />
        
-    
+       <Input
+          inputType={"file"}
+          title={"Select file"}
+          name={"image"}
+          value={this.state.newProduct.image}
+          handleChange={this.handleFile}
+        />{" "}
        
         <TextArea
           title={"Description"}
           rows={1}
-          value={this.state.newUser.about}
+          value={this.state.newProduct.about}
           name={"currentPetInfo"}
           handleChange={this.handleTextArea}
           placeholder={""}

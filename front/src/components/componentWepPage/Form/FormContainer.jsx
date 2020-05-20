@@ -8,6 +8,37 @@ import Select from "./Select";
 import Button from "./Button";
 
 class FormContainer extends Component {
+
+  state = {
+    file: null,
+    base64URL: ""
+  };
+
+  getBase64 = file => {
+    return new Promise(resolve => {
+      let fileInfo;
+      let baseURL = "";
+      
+      let reader = new FileReader();
+
+     
+      reader.readAsDataURL(file);
+
+     
+      reader.onload = () => {
+        
+        console.log("Called", reader);
+        baseURL = reader.result;
+        console.log(baseURL);
+        resolve(baseURL);
+      };
+      console.log(fileInfo);
+    });
+  };
+
+
+
+
   constructor(props) {
     super(props);
 
@@ -48,7 +79,7 @@ class FormContainer extends Component {
   }
 
 
-  handleFile(e) {
+  /*handleFile(e) {
     let value = e.target.value;
     this.setState(
       prevState => ({
@@ -59,7 +90,55 @@ class FormContainer extends Component {
       }),
       () => console.log(this.state.newProduct)
     );
+  }*/
+
+
+
+
+
+  handleFile(e) {
+    let { file } = this.state;
+
+    file = e.target.files[0];
+
+
+
+    this.getBase64(file)
+    .then(result => {
+      file["base64"] = result;
+      console.log("File Is", file);
+      this.setState(
+        /*{
+        base64URL: result,
+        file
+      },*/
+      
+      prevState => ({
+        newUser: {
+          ...prevState.newUser,
+          image: result
+        }
+      }),
+      () => console.log(this.state.newUser)
+      
+      
+      );
+    })
+    .catch(err => {
+      console.log(err);
+    });
+
+
+
+    this.setState(
+    {
+      file: e.target.files[0],
+    }
+    );
   }
+       
+
+
 
 
 

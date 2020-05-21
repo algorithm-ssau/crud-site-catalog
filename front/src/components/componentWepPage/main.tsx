@@ -127,7 +127,7 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
       json.products.map((producsItem: any) => ({
         ...producsItem,
         id: producsItem._id,
-        imagePath: 'https://assets.change.org/photos/9/ti/kt/OZTikTiXHKSEJIl-800x450-noPad.jpg?1549309383',
+        imagePath: producsItem.imagePath,
       })),
     );
   };
@@ -194,25 +194,23 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
 
         <Divider />
         <List component="nav" aria-label="main mailbox folders">
-       
-       <ListItem button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-      Add Product
-     </ListItem>
-     <Menu
-       id="simple-menu"
-      //anchorEl={anchorEl}
-       keepMounted
-       open={Boolean(anchorEl)}
-       onClose={handleClose}
-     >
-       <MenuItem><AddCard/></MenuItem>
-      
-     </Menu>
+
+          <ListItem button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+            Add Product
+          </ListItem>
+          <Menu
+            id="simple-menu"
+            // anchorEl={anchorEl}
+            keepMounted
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+          >
+            <MenuItem><AddCard /></MenuItem>
+
+          </Menu>
 
 
-     
-   
-       </List>
+        </List>
       </Drawer>
       <main
         className={clsx(classes.content, {

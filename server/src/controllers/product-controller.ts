@@ -2,6 +2,7 @@ import { Request, Response } from "express-serve-static-core";
 import Product from "../schemas/product";
 import Category from "../schemas/category";
 import mongoose, { Types, isValidObjectId } from "mongoose";
+import { saveFileBase64ToDisk } from "../utils";
 
 class ProductController {
   list(req: Request, res: Response) {
@@ -25,11 +26,30 @@ class ProductController {
       .catch((err) => res.json(err));
   }
 
-  create(req: Request, res: Response) {
-    new Product(req.body)
-      .save()
-      .then((product) => res.json(product))
-      .catch((err) => res.json(err));
+  create = async (req: Request, res: Response) => {
+    console.log(req)
+    const { about, image, categoryId, price, name } = req.body;
+    const filePath = await saveFileBase64ToDisk(image);
+    try {
+      const product = await (new Product({
+        name,
+        price,
+        description: about,
+        imagePath: filePath
+      }).save())
+
+      const _id: string = categoryId;
+      await Category.findByIdAndUpdate({ _id },
+        {
+          $push: {
+            products: product._id
+          }
+        });
+      res.json(product)
+    }
+    catch (err) {
+      res.status(505).send("Что-то Сломалось" + err.toString())
+    }
   }
 
   update(req: Request, res: Response) {

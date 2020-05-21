@@ -30,7 +30,7 @@ export default function MediaCard({ image, title }: { image: string; title: stri
         />
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
-            Product 1
+            {title}
           </Typography>
 
         </CardContent>

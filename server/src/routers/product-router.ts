@@ -6,7 +6,7 @@ const productController = new ProductController();
 
 router.get("/list", productController.list)
 router.get("/:id", productController.get)
-router.post("/", productController.create)
+router.post("/create", productController.create)
 router.put("/:id", productController.update)
 router.delete("/:id", productController.delete)
 

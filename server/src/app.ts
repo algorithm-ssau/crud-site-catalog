@@ -2,12 +2,15 @@ import express from "express";
 import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
+import path from "path";
 
 const app = express();
 const port = 8080;
-
+app.use("/uploads", express.static(path.join(__dirname, "..", '/uploads')));
 app.use(bodyParser.json());
 app.use(cors());
+
+console.log(path.join(__dirname, "..", '/uploads'))
 
 // connect to db
 mongoose

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 
-
 import Input from "./Input";
 import TextArea from "./TextArea";
 import Select from "./Select";
@@ -14,19 +13,20 @@ class FormContainer extends Component {
     base64URL: ""
   };
 
+
   getBase64 = file => {
     return new Promise(resolve => {
       let fileInfo;
       let baseURL = "";
-      
+     
       let reader = new FileReader();
 
-     
+      
       reader.readAsDataURL(file);
 
      
       reader.onload = () => {
-        
+      
         console.log("Called", reader);
         baseURL = reader.result;
         console.log(baseURL);
@@ -44,37 +44,35 @@ class FormContainer extends Component {
 
     this.state = {
       newProduct: {
-       
+        nameProduct: "",
+        price: "",
         category: "",
-        nameProduct:"",
-        price:"",
-        image:"",
-        about: ""
+    
+        description: "",
+        file:""
       },
 
       categoryOptions: ["Category1", "Category2", "Category3"],
-     
+   
     };
     this.handleTextArea = this.handleTextArea.bind(this);
     this.handlePrice = this.handlePrice.bind(this);
-    this.handleNameProduct = this.handleNameProduct.bind(this);
+    this.handleProductName = this.handleProductName.bind(this);
     this.handleFormSubmit = this.handleFormSubmit.bind(this);
     this.handleClearForm = this.handleClearForm.bind(this);
-    this.handleFile=this.handleFile.bind(this);
     this.handleInput = this.handleInput.bind(this);
+    this.handleFile = this.handleFile.bind(this);    
   }
 
   
 
-
-  handleInput(e) {
+  handleProductName(e) {
     let value = e.target.value;
-    let name = e.target.name;
     this.setState(
       prevState => ({
         newProduct: {
           ...prevState.newProduct,
-          [name]: value
+          nameProduct: value
         }
       }),
       () => console.log(this.state.newProduct)
@@ -82,64 +80,44 @@ class FormContainer extends Component {
   }
 
 
-  /*handleFile(e) {
-    let value = e.target.value;
-    this.setState(
-      prevState => ({
-        newProduct: {
-          ...prevState.newProduct,
-          image: value
-        }
-      }),
-      () => console.log(this.state.newProduct)
-    );
-  }*/
-
-
-
-
-
   handleFile(e) {
+   
+    console.log(e.target.files[0]);
     let { file } = this.state;
 
     file = e.target.files[0];
 
-
-
     this.getBase64(file)
-    .then(result => {
-      file["base64"] = result;
-      console.log("File Is", file);
-      this.setState(
-        /*{
-        base64URL: result,
-        file
-      },*/
-      
+      .then(result => {
+        file["base64"] = result;
+        console.log("File Is", file);
+
+this.setState(
+    
       prevState => ({
-        newUser: {
-          ...prevState.newUser,
-          image: result
+        newProduct: {
+          ...prevState.newProduct,
+
+          file: file
         }
       }),
-      () => console.log(this.state.newUser)
-      
-      
-      );
-    })
-    .catch(err => {
-      console.log(err);
-    });
-
-
-
-    this.setState(
-    {
-      file: e.target.files[0],
-    }
+      () => console.log(this.state.newProduct)
     );
-  }
-       
+  })
+  .catch(err => {
+    console.log(err);
+  });
+
+this.setState({
+  file: e.target.files[0]
+});
+};
+  
+
+
+
+
+
 
 
   handlePrice(e) {
@@ -155,20 +133,19 @@ class FormContainer extends Component {
     );
   }
 
-
-  handleNameProduct(e) {
+  handleInput(e) {
     let value = e.target.value;
+    let name = e.target.name;
     this.setState(
       prevState => ({
         newProduct: {
           ...prevState.newProduct,
-          nameProduct: value
+          [name]: value
         }
       }),
       () => console.log(this.state.newProduct)
     );
   }
-
 
   handleTextArea(e) {
     console.log("Inside handleTextArea");
@@ -177,7 +154,7 @@ class FormContainer extends Component {
       prevState => ({
         newProduct: {
           ...prevState.newProduct,
-          about: value
+          description: value
         }
       }),
       () => console.log(this.state.newProduct)
@@ -186,13 +163,11 @@ class FormContainer extends Component {
 
  
 
- 
-
   handleFormSubmit(e) {
     e.preventDefault();
     let userData = this.state.newProduct;
 
-    fetch("http://example.com", {
+    fetch("", {
       method: "POST",
       body: JSON.stringify(userData),
       headers: {
@@ -210,10 +185,11 @@ class FormContainer extends Component {
     e.preventDefault();
     this.setState({
       newProduct: {
-        
+        nameProduct: "",
+        price: "",
         category: "",
-        image:"",
-        about: ""
+        description: "",
+        file:""
       }
     });
   }
@@ -221,78 +197,70 @@ class FormContainer extends Component {
   render() {
     return (
       <form className="container-fluid" onSubmit={this.handleFormSubmit}>
-      
-      
-        <Select
-          title={"Category"}
-          name={"category"}
-          options={this.state.categoryOptions}
-          value={this.state.newProduct.category}
-          placeholder={"Select Category"}
-          handleChange={this.handleInput}
-        />
-       
-
-       <Input
+        <Input
           inputType={"text"}
-          title={"Product name"}
-          name={"Product name"}
-          value={this.state.newProduct.nameProduct}
-          placeholder={"Enter name"}
-          handleChange={this.handleNameProduct}
+          title={"Product name: "}
+          name={"nameProduct"}
+          value={this.state.newProduct.name}
+          placeholder={"Enter product name"}
+          handleChange={this.handleInput}
         />{" "}
-
-
-       <Input
+       
+        <Input
           inputType={"number"}
-          title={"Price"}
           name={"price"}
+          title={"Price: "}
           value={this.state.newProduct.price}
           placeholder={"Enter price"}
           handleChange={this.handlePrice}
         />{" "}
-
-
-
-
-       <Input
-          inputType={"file"}
-          title={"Select file"}
-          name={"image"}
-          value={this.state.newProduct.image}
-          handleChange={this.handleFile}
+       
+        <Select
+          title={"Category: "}
+          name={"category"}
+          options={this.state.categoryOptions}
+          value={this.state.newProduct.category}
+          placeholder={"Select category"}
+          handleChange={this.handleInput}
         />{" "}
        
+   
         <TextArea
-          title={"Description"}
+          title={"Product's description: "}
           rows={1}
           value={this.state.newProduct.about}
           name={"currentPetInfo"}
           handleChange={this.handleTextArea}
-          placeholder={""}
+          placeholder={"Describe your product"}
         />
-       
+      
+
+
+        <input type="file" name="file" onChange={this.handleFile} />
+
+
+
         <Button
           action={this.handleFormSubmit}
           type={"primary"}
           title={"Add product"}
           style={buttonStyle}
         />{" "}
-      
+     
         <Button
           action={this.handleClearForm}
           type={"secondary"}
           title={"Clear form"}
           style={buttonStyle}
         />{" "}
-       
+      
       </form>
     );
   }
 }
 
 const buttonStyle = {
-  margin: "3px 3px 3px 3px"
+  margin: "10px 10px 10px 10px"
 };
 
 export default FormContainer;

@@ -25,7 +25,7 @@ class CategoryController {
         })
       );
     }));
-    res.json(listResp);
+    res.json(_.uniq(listResp));
   }
 
   async get(req: Request, res: Response) {

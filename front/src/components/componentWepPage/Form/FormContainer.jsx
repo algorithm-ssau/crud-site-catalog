@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-
+import "./styles.css";
 import Input from "./Input";
 import TextArea from "./TextArea";
 import Select from "./Select";
@@ -98,7 +98,7 @@ this.setState(
         newProduct: {
           ...prevState.newProduct,
 
-          file: file
+          file: result
         }
       }),
       () => console.log(this.state.newProduct)
@@ -197,23 +197,32 @@ this.setState({
   render() {
     return (
       <form className="container-fluid" onSubmit={this.handleFormSubmit}>
-        <Input
+
+<TextArea
+          title={"Product's name: "}
           inputType={"text"}
-          title={"Product name: "}
-          name={"nameProduct"}
+          rows={1}
           value={this.state.newProduct.name}
-          placeholder={"Enter product name"}
+          name={"nameProduct"}
           handleChange={this.handleInput}
-        />{" "}
-       
-        <Input
-          inputType={"number"}
-          name={"price"}
+          placeholder={"Enter product's name"}
+        />
+      
+
+
+
+      <TextArea
           title={"Price: "}
+          inputType={"number"}
+          rows={1}
           value={this.state.newProduct.price}
-          placeholder={"Enter price"}
+          name={"price"}
           handleChange={this.handlePrice}
-        />{" "}
+          placeholder={"Enter price"}
+        />
+      
+
+
        
         <Select
           title={"Category: "}
@@ -234,9 +243,24 @@ this.setState({
           placeholder={"Describe your product"}
         />
       
+    
+
+      
 
 
-        <input type="file" name="file" onChange={this.handleFile} />
+
+      <Input
+         input type="file"
+          rows={1}
+         
+          name={"file"}
+          handleChange={this.handleFile}
+          
+        />
+
+
+
+
 
 
 
@@ -264,3 +288,5 @@ const buttonStyle = {
 };
 
 export default FormContainer;
+
+

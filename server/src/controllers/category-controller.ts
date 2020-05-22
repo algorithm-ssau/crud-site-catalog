@@ -2,7 +2,6 @@ import { Request, Response } from "express-serve-static-core";
 import Category from "../schemas/category";
 import ProductController from "./product-controller";
 import Product from "../schemas/product";
-import { Schema } from "mongoose";
 import * as _ from "lodash";
 
 class CategoryController {

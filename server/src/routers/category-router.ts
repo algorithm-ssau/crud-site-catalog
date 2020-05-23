@@ -6,7 +6,7 @@ const categoryController = new CategoryController();
 
 router.get("/list", categoryController.list)
 router.get("/:id", categoryController.get)
-router.post("/", categoryController.create)
+router.post("/create", categoryController.create)
 router.put("/:id", categoryController.update)
 router.delete("/:id", categoryController.delete)
 

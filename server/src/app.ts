@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
 import path from "path";
-const { createProxyMiddleware } = require("http-proxy-middleware");
+import { createProxyMiddleware } from "http-proxy-middleware";
 
 const app = express();
 const port = 8080;
@@ -24,9 +24,10 @@ mongoose
 const products = require("./routers/product-router");
 const categories = require("./routers/category-router");
 
+app.use(createProxyMiddleware("/about", { target: "http://127.0.0.1:5000/" }));
 app.use("/products", products);
 app.use("/category", categories);
-app.use(createProxyMiddleware("/about", { target: "http://127.0.0.1:5000/" }));
+
 
 app.listen(port, () => {
   console.log(`server started at http://localhost:${port}`);

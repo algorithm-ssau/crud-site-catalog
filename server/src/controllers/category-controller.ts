@@ -3,6 +3,7 @@ import Category from "../schemas/category";
 import ProductController from "./product-controller";
 import Product from "../schemas/product";
 import * as _ from "lodash";
+import fetch from 'node-fetch';
 
 class CategoryController {
   productController = new ProductController();
@@ -52,11 +53,13 @@ class CategoryController {
     res.json(response);
   }
 
-  create(req: Request, res: Response) {
-    new Category(req.body)
-      .save()
-      .then((category) => res.json(category))
-      .catch((err) => res.json(err));
+  async create(req: Request, res: Response) {
+   const response = await(await fetch("http://localhost:5000/category/create", {
+     method: "POST",
+     body: JSON.stringify(req.body),
+     headers: {'Content-Type': 'application/json'}
+   })).text();
+   res.send(response)
   }
 
   update(req: Request, res: Response) {

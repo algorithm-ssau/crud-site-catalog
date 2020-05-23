@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request, jsonify
 from flask import render_template
 from flask_pymongo import PyMongo
 
@@ -11,5 +11,17 @@ def about():
     temp = mongo.db.products.find({})
     return render_template("task.html", temp=list(temp))
 
+@app.route('/category/create', methods=["POST"])
+def createCatalog():
+    data = request.json
+    print(request.json)
+    categoryName = data["name"]
+    categoryDescription = data["description"]
+    return str(
+     mongo.db.categories.save({
+        "name": categoryName,
+        "description": categoryDescription,
+        "products": []
+    }))
 if __name__ == '__main__':
     app.run()

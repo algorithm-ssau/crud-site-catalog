@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
 import path from "path";
-import { createProxyMiddleware } from "http-proxy-middleware";
+const {createProxyMiddleware } = require("http-proxy-middleware");
 
 const app = express();
 const port = 8080;

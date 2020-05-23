@@ -10,8 +10,8 @@ class AddCategory extends Component {
 
     this.state = {
       newCategory: {
-        nameCategory: "",
-        descriptionCategory: ""
+        name: "",
+        description: ""
       },
  };
     this.handleTextArea = this.handleTextArea.bind(this);
@@ -30,7 +30,7 @@ class AddCategory extends Component {
       prevState => ({
         newCategory: {
           ...prevState.newCategory,
-          nameCategory: value
+          name: value
         }
       }),
       () => console.log(this.state.newCategory)
@@ -46,7 +46,7 @@ class AddCategory extends Component {
       prevState => ({
         newCategory: {
           ...prevState.newCategory,
-          descriptionCategory: value
+          description: value
         }
       }),
       () => console.log(this.state.newCategory)
@@ -57,7 +57,7 @@ class AddCategory extends Component {
     e.preventDefault();
     let userData = this.state.newCategory;
 
-    fetch("", {
+    fetch("/category/create", {
       method: "POST",
       body: JSON.stringify(userData),
       headers: {
@@ -75,8 +75,8 @@ class AddCategory extends Component {
     e.preventDefault();
     this.setState({
       newCategory: {
-        nameCategory: "",
-        descriptionCategory: ""
+        name: "",
+        description: ""
       }
     });
   }
@@ -89,8 +89,8 @@ class AddCategory extends Component {
         <TextArea
           title={"Category's name"}
           rows={1}
-          value={this.state.newCategory.nameCategory}
-          name={"nameCategory"}
+          value={this.state.newCategory.name}
+          name={"name"}
           handleChange={this.handleTextName}
           placeholder={"Category's name"}
         />
@@ -101,8 +101,8 @@ class AddCategory extends Component {
         <TextArea
           title={"Category's description"}
           rows={3}
-          value={this.state.newCategory.descriptionCategory}
-          name={"descriptionCategory"}
+          value={this.state.newCategory.description}
+          name={"description"}
           handleChange={this.handleTextArea}
           placeholder={"Describe your category"}
         />

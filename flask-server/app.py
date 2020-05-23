@@ -7,10 +7,8 @@ app.config["MONGO_URI"] = "mongodb+srv://Team06:TTD07KlWDvD59Zrp@test-cluster-gg
 mongo = PyMongo(app)
 
 @app.route('/about')
-def hello_world():
-    response = []
+def about():
     temp = mongo.db.products.find({})
-
     return render_template("task.html", temp=list(temp))
 
 if __name__ == '__main__':

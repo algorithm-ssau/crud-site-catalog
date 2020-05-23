@@ -3,14 +3,15 @@ import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import cors from "cors";
 import path from "path";
+const { createProxyMiddleware } = require("http-proxy-middleware");
 
 const app = express();
 const port = 8080;
-app.use("/uploads", express.static(path.join(__dirname, "..", '/uploads')));
+app.use("/uploads", express.static(path.join(__dirname, "..", "/uploads")));
 app.use(bodyParser.json());
 app.use(cors());
 
-console.log(path.join(__dirname, "..", '/uploads'))
+console.log(path.join(__dirname, "..", "/uploads"));
 
 // connect to db
 mongoose
@@ -25,6 +26,7 @@ const categories = require("./routers/category-router");
 
 app.use("/products", products);
 app.use("/category", categories);
+app.use(createProxyMiddleware("/about", { target: "http://127.0.0.1:5000/" }));
 
 app.listen(port, () => {
   console.log(`server started at http://localhost:${port}`);

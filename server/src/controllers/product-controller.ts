@@ -27,24 +27,25 @@ class ProductController {
   }
 
   create = async (req: Request, res: Response) => {
-    console.log(req)
-    const { about, image, categoryId, price, name } = req.body;
-    const filePath = await saveFileBase64ToDisk(image);
+    const { description, file, category, price, nameProduct } = req.body;
+    const filePath = await saveFileBase64ToDisk(file);
     try {
+      console.log(1)
       const product = await (new Product({
-        name,
+        name: nameProduct,
         price,
-        description: about,
+        description,
         imagePath: filePath
       }).save())
-
-      const _id: string = categoryId;
+      console.log(2)
+      const _id: string = category;
       await Category.findByIdAndUpdate({ _id },
         {
           $push: {
             products: product._id
           }
         });
+      console.log(3);
       res.json(product)
     }
     catch (err) {

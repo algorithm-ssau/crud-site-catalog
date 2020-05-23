@@ -4,7 +4,6 @@ import { promises as fs } from 'fs';
 export const saveFileBase64ToDisk = async (fileBase64: string, saveDirectory = "uploads") => {
     const customFilePath = `${saveDirectory}/${nanoid.nanoid()}.${base64MimeType(fileBase64)}`
     const base64Data = fileBase64.replace(/^data:image\/(?:gif|png|jpeg|bmp|webp)(?:;charset=utf-8)?;base64,/, "");
-    console.log(base64Data)
     await fs.appendFile(customFilePath, base64Data, 'base64');
 
     return customFilePath;

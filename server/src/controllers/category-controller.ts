@@ -10,20 +10,22 @@ class CategoryController {
   async list(req: Request, res: Response) {
     const listResp: any[] = [];
     const respon = await Category.find().then((categories) => categories);
-    await Promise.all(respon.map(async (val) => {
-      const productsId = val.get("products");
-      if (productsId.length === 0) {
-        listResp.push(val);
-      }
-      await Promise.all(
-        productsId.map(async (id: any) => {
-          await Product.findById(id.toString()).then((pr: any) => {
-            const resp = replace(val, id.toString(), pr);
-            listResp.push(resp);
-          });
-        })
-      );
-    }));
+    await Promise.all(
+      respon.map(async (val) => {
+        const productsId = val.get("products");
+        if (productsId.length === 0) {
+          listResp.push(val);
+        }
+        await Promise.all(
+          productsId.map(async (id: any) => {
+            await Product.findById(id.toString()).then((pr: any) => {
+              const resp = replace(val, id.toString(), pr);
+              listResp.push(resp);
+            });
+          })
+        );
+      })
+    );
     res.json(_.uniq(listResp));
   }
 
@@ -37,11 +39,16 @@ class CategoryController {
     if (productsId.length === 0) {
       res.json(response);
     }
-    await Promise.all(productsId.map(async (id: any) => {
-      const product = await Product.findById(id.toString()).then((pr: any) => {
-        const resp = replace(response, id.toString(), pr);
-      });
-    }))
+
+    await Promise.all(
+      productsId.map(async (id: any) => {
+        const product = await Product.findById(id.toString()).then(
+          (pr: any) => {
+            const resp = replace(response, id.toString(), pr);
+          }
+        );
+      })
+    );
     res.json(response);
   }
 
@@ -70,6 +77,9 @@ class CategoryController {
 function replace(object: any, searchID: string, obj: any) {
   const replacedObject = object;
   for (let i = 0; i < replacedObject.products.length; i++) {
+    if (replacedObject.products[i] == null) {
+      replacedObject.products[i] = {};
+    }
     if (replacedObject.products[i].toString() === searchID)
       replacedObject.products[i] = obj;
   }

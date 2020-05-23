@@ -7,4 +7,5 @@ start npm start
 
 cd ..
 cd flask-server
-start python app.py
+SET FLASK_APP=app.py
+flask run

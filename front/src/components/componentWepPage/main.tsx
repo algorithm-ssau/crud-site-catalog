@@ -18,11 +18,12 @@ import ListItem from '@material-ui/core/ListItem';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import { useHistory } from 'react-router-dom';
+import { useHistory, NavLink } from 'react-router-dom';
 import { GridSpacing } from '@material-ui/core';
 import Tittle from './tittle';
 import Example, { GridItem } from './images';
 import AddCard from './Form/FormContainer';
+import AboutPage from '../../pages/AboutPage';
 
 const drawerWidth = 240;
 
@@ -92,12 +93,13 @@ export interface ListItem {
 
 
 // eslint-disable-next-line max-len
-export default function MainPageComponent({ id, dataListItem, changeLocation }:
+export default function MainPageComponent({
+  id, dataListItem, changeLocation,
+}:
   {
     id: string | undefined,
     dataListItem: ListItem[],
     changeLocation: Function,
-
   }) {
   const classes = useStyles();
   const theme = useTheme();
@@ -108,6 +110,8 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
   const handleDrawerOpen = () => {
     setOpen(true);
   };
+
+  const isPageAbout = id === 'about';
 
   const handleDrawerClose = () => {
     setOpen(false);
@@ -167,7 +171,7 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap>
-            Shop
+            { !isPageAbout ? 'Shop' : 'Чики брики'}
           </Typography>
         </Toolbar>
       </AppBar>
@@ -198,6 +202,9 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
           <ListItem button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
             Add Product
           </ListItem>
+          <ListItem button aria-controls="simple-menu" aria-haspopup="true" onClick={() => changeLocation('/about')}>
+            About
+          </ListItem>
           <Menu
             id="simple-menu"
             // anchorEl={anchorEl}
@@ -217,11 +224,17 @@ export default function MainPageComponent({ id, dataListItem, changeLocation }:
           [classes.contentShift]: open,
         })}
       >
-        <div className={classes.drawerHeader} />
-        <Tittle name={categoryItem?.name} description={categoryItem?.description} />
+        {!isPageAbout && (
+          <>
+            <div className={classes.drawerHeader} />
+            <Tittle name={categoryItem?.name} description={categoryItem?.description} />
 
-        <Example products={productsItems} />
-
+            <Example products={productsItems} />
+          </>
+        )}
+        {isPageAbout && (
+          <AboutPage />
+        )}
 
       </main>
     </div>

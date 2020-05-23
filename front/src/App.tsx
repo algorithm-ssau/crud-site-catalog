@@ -7,6 +7,7 @@ import MainPage from './pages/MainPage';
 import CatalogsContext from './pages/LoadingPage/catalogsContext';
 import LoadingPage from './pages/LoadingPage';
 import { ListItem } from './components/componentWepPage/main';
+import AboutPage from './pages/AboutPage';
 
 
 function App() {

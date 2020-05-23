@@ -24,7 +24,7 @@ import Tittle from './tittle';
 import Example, { GridItem } from './images';
 import AddCard from './Form/FormContainer';
 import AboutPage from '../../pages/AboutPage';
-
+import AddCategory from './AddCategoryForm/AddCategory';
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -107,6 +107,7 @@ export default function MainPageComponent({
   const [productsItems, setProductItems] = useState<GridItem[]>([]); // Просто надо будет замапить
   const [categoryItem, setCategoryItem] = useState<ListItem>();
   const [anchorEl, setAnchorEl] = React.useState(false);
+  const [anchor, setAnchor] = React.useState(false);
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -119,9 +120,15 @@ export default function MainPageComponent({
   const handleClick = () => {
     setAnchorEl(true);
   };
+  const handle = () => {
+    setAnchor(true);
+  };
 
   const handleClose = () => {
     setAnchorEl(false);
+  };
+  const Close = () => {
+    setAnchor(false);
   };
 
   const loadCurrentCatalog = async (catalogId: string) => {
@@ -218,6 +225,34 @@ export default function MainPageComponent({
 
 
         </List>
+
+
+
+        <List component="nav" aria-label="main mailbox folders">
+
+<ListItem button aria-controls="simple-menu" aria-haspopup="true" onClick={handle}>
+  Add Category
+</ListItem>
+
+<Menu
+  id="simple-menu"
+  // anchorEl={anchorEl}
+  keepMounted
+  open={Boolean(anchor)}
+  onClose={Close}
+>
+  <MenuItem><AddCategory /></MenuItem>
+
+</Menu>
+
+
+</List>
+
+
+
+
+
+
       </Drawer>
       <main
         className={clsx(classes.content, {

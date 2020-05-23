@@ -37,12 +37,12 @@ class CategoryController {
     if (productsId.length === 0) {
       res.json(response);
     }
-    productsId.map(async (id: any) => {
+    await Promise.all(productsId.map(async (id: any) => {
       const product = await Product.findById(id.toString()).then((pr: any) => {
         const resp = replace(response, id.toString(), pr);
-        res.json(resp);
       });
-    });
+    }))
+    res.json(response);
   }
 
   create(req: Request, res: Response) {

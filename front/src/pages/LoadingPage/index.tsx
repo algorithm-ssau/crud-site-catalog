@@ -14,7 +14,6 @@ const LoadingPage = () => {
     }
 
     context.updateCatalogs();
-
     return (
         <Grid
             item

@@ -174,7 +174,7 @@ class FormContainer extends Component {
         category: '',
         description: '',
         file: '',
-      },
+       },
     });
   }
 

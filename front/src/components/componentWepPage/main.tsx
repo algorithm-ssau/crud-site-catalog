@@ -209,9 +209,9 @@ export default function MainPageComponent({
           <ListItem button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
             Add Product
           </ListItem>
-          <ListItem button aria-controls="simple-menu" aria-haspopup="true" onClick={() => changeLocation('/about')}>
-            About
-          </ListItem>
+        
+
+
           <Menu
             id="simple-menu"
             // anchorEl={anchorEl}
@@ -224,13 +224,8 @@ export default function MainPageComponent({
           </Menu>
 
 
-        </List>
 
-
-
-        <List component="nav" aria-label="main mailbox folders">
-
-<ListItem button aria-controls="simple-menu" aria-haspopup="true" onClick={handle}>
+          <ListItem button aria-controls="simple-menu" aria-haspopup="true" onClick={handle}>
   Add Category
 </ListItem>
 
@@ -245,15 +240,14 @@ export default function MainPageComponent({
 
 </Menu>
 
+<ListItem button aria-controls="simple-menu" aria-haspopup="true" onClick={() => changeLocation('/about')}>
+            About
+  </ListItem>
 
-</List>
+        </List>
 
 
-
-
-
-
-      </Drawer>
+ </Drawer>
       <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,

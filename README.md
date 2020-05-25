@@ -34,6 +34,8 @@ npm i
 ```
 То же самое сделайте по пути crud-site-catalog\server
 
+
+### Запуск
 Вернитесь в паку crud-site-catalog и выполните
 
 ```bash

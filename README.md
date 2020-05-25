@@ -15,26 +15,29 @@
 
 Для запуска вам потребуется  [Node.js](https://nodejs.org/), также убедитесь, что у вас установлен [Python](https://www.python.org/downloads/).
 
-Для запуска вам понадобятся pip и npm — системы управления пакетами. Они включены в состав Python и Node.js соответственно, но может понадобиться установить переменные среды для их запуска.
-
-Путь к npm: C:\Users\\%user%\AppData\Roaming\npm
-Путь к pip: C:\Users\\%user%\AppData\Local\Programs\Python\Python%ver%-32\Scripts
+Перейдите в папку Flask сервера
+```bash
+cd flask-server
+```
 
 В командной строке выполните
 ```bash
-pip install Flask
+pip install -r reqs.txt
 ```
-Перейдите в папку с проектом, затем перейдите в папку crud-site-catalog\flask-server и выполните
-```bash
-py app.py
-```
+для установки необходимых зависимостей для Flask-сервера.
+
+
 В папке проекта перейдите в папку crud-site-catalog\front и выполните
+
 ```bash
 npm i
 ```
-Для запуска сервера выполните
-```bash
-npm start
-```
 То же самое сделайте по пути crud-site-catalog\server
+
+Вернитесь в паку crud-site-catalog и выполните
+
+```bash
+run.bat
+```
+
 По умолчанию сайт доступен по адресу localhost:3000

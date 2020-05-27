@@ -42,7 +42,7 @@ const CardItem: React.FC<CardItemPrpos> = ({
         <div className="card-item__button-conainer">
          
 
-      
+      <form>
         <TextField
           title={"Description: "}
           rows={1}
@@ -58,7 +58,7 @@ const CardItem: React.FC<CardItemPrpos> = ({
          
           placeholder={"Price: "}
         />
-      
+      </form>
 
 
         <IconButton  

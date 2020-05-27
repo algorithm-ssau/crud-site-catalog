@@ -1,8 +1,13 @@
 import React from 'react';
-import { Modal, Button, Typography } from '@material-ui/core';
+import { Modal, Button, Typography, TextField } from '@material-ui/core';
 // eslint-disable-next-line no-unused-vars
 import * as H from 'history';
 import './styles.scss';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+
+
 
 export interface CardItemPrpos {
   id: string,
@@ -17,32 +22,53 @@ const deleteItem = (id: string) => {
   fetch(`/products/${id}`, { method: 'DELETE' });
 };
 
+
 const CardItem: React.FC<CardItemPrpos> = ({
   id, price, description, imageUrl, isOpen, onClose,
 }) => (
     <Modal open={isOpen} onClose={onClose}>
       <div className="card-item">
         <div className="card-item__photo-container">
+
+       
+
+
           <Typography className="card-item__photo-text" variant="h5" component="h2">Фото</Typography>
           <img alt="Тут картинка" className="card-item__photo" src={imageUrl} />
         </div>
-        <div className="card-item__button-conainer">
-          <Button
-            variant="contained"
-            color="primary"
-            className="card-item__button"
-          >
-            Описание
-        </Button>
-          <Button
-            variant="contained"
-            color="primary"
-            className="card-item__button"
-            onClick={() => deleteItem(id)}
-          >
-            Удалить
 
-        </Button>
+
+
+        <div className="card-item__button-conainer">
+         
+
+      
+        <TextField
+          title={"Description: "}
+          rows={1}
+          value={"Описание: "+description}
+         
+          placeholder={"Description: "}
+        />
+      
+      <TextField
+          title={"Price: "}
+          rows={1}
+          value={"Цена: "+price}
+         
+          placeholder={"Price: "}
+        />
+      
+
+
+        <IconButton  
+          className="card-item__button"
+            onClick={() => deleteItem(id)}
+        >
+          <DeleteIcon />
+        </IconButton>
+
+      
         </div>
       </div>
     </Modal>

@@ -3,38 +3,8 @@ import Product from "../schemas/product";
 import Category from "../schemas/category";
 import mongoose, { Types, isValidObjectId } from "mongoose";
 import { saveFileBase64ToDisk } from "../utils";
-import fetch from "node-fetch";
-import { runInNewContext } from "vm";
 
 class ProductController {
-  info(req: Request, res: Response) {
-    fetch("https://fllaass.df.r.appspot.com/about").then((a) =>
-      res.send(`
-                <!DOCTYPE html>
-          <html>
-
-          <head>
-            <title>About</title>
-          </head>
-
-          <body>
-
-            <h1>About Us</h1>
-            <p style="font-size: 20px;">
-              Максим Алкеев 🛌 <br>
-              Максим Кривощапов 🐕 <br>
-              Денис Полушкин 👩‍💻 <br>
-              Анастасия Голова 🐲 <br>
-              Виктория Кудрявцева 🗑 <br>
-            </p>
-
-          </body>
-
-          </html>
-    `)
-    );
-  }
-
   list(req: Request, res: Response) {
     Product.find()
       .then((products) => {
@@ -60,31 +30,28 @@ class ProductController {
     const { description, file, category, price, nameProduct } = req.body;
     const filePath = await saveFileBase64ToDisk(file);
     try {
-      console.log(1);
-      const product = await new Product({
+      console.log(1)
+      const product = await (new Product({
         name: nameProduct,
         price,
         description,
-        imagePath: filePath,
-      }).save();
-      console.log(2);
+        imagePath: filePath
+      }).save())
+      console.log(2)
       const _id: string = category;
-      await Category.findByIdAndUpdate(
-        { _id },
+      await Category.findByIdAndUpdate({ _id },
         {
           $push: {
-            products: product._id,
-          },
-        }
-      );
+            products: product._id
+          }
+        });
       console.log(3);
-
-
-      res.json(product);
-    } catch (err) {
-      res.status(505).send("Что-то Сломалось" + err.toString());
+      res.json(product)
     }
-  };
+    catch (err) {
+      res.status(505).send("Что-то Сломалось" + err.toString())
+    }
+  }
 
   update(req: Request, res: Response) {
     const _id: string = req.params.id;

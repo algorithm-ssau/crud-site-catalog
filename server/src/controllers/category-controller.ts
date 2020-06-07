@@ -3,7 +3,7 @@ import Category from "../schemas/category";
 import ProductController from "./product-controller";
 import Product from "../schemas/product";
 import * as _ from "lodash";
-import fetch from "node-fetch";
+import fetch from 'node-fetch';
 
 class CategoryController {
   productController = new ProductController();
@@ -20,10 +20,8 @@ class CategoryController {
         await Promise.all(
           productsId.map(async (id: any) => {
             await Product.findById(id.toString()).then((pr: any) => {
-              if (!!pr && pr.name) {
-                const resp = replace(val, id.toString(), pr);
-                listResp.push(resp);
-              }
+              const resp = replace(val, id.toString(), pr);
+              listResp.push(resp);
             });
           })
         );
@@ -34,7 +32,6 @@ class CategoryController {
 
   async get(req: Request, res: Response) {
     const _id: string = req.params.id;
-    const listResp: any[] = [];
     const response = await Category.findById(_id.toString()).then(
       (categories) => categories
     );
@@ -48,39 +45,21 @@ class CategoryController {
       productsId.map(async (id: any) => {
         const product = await Product.findById(id.toString()).then(
           (pr: any) => {
-            if (!!pr && pr.name) {
-              const resp = replace(response, id.toString(), pr);
-
-              if (resp.products != null) {
-                resp.products.forEach((element: any) => {
-                  if (element.name) {
-                    listResp.push(resp);
-                  }
-                });
-              }
-            }
+            const resp = replace(response, id.toString(), pr);
           }
         );
       })
     );
-
-    const a = _.uniq(listResp)[0];
-
-    const b = a.products.filter((v: any) => !!v.name);
-
-    res.json({ name: a.name, products: b, _id: a._id });
+    res.json(response);
   }
 
   async create(req: Request, res: Response) {
-    const { name, description } = req.body;
-
-    const category = await new Category({
-      name,
-      description,
-      products: [],
-    }).save();
-
-    res.send({});
+   const response = await(await fetch("http://localhost:5000/category/create", {
+     method: "POST",
+     body: JSON.stringify(req.body),
+     headers: {'Content-Type': 'application/json'}
+   })).text();
+   res.send(response)
   }
 
   update(req: Request, res: Response) {

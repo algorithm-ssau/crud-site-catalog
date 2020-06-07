@@ -14,10 +14,8 @@ function App() {
   const [catalogs, setCatalogs] = useState<ListItem[]>();
 
   const fetchCatalogs = async () => {
-    const jsonReponse = await fetch(
-      "https://buoyant-habitat-279114.df.r.appspot.com/category/list",
-      { method: "GET" }
-    ).then((reponse) => reponse.json());
+    const jsonReponse = await fetch('/category/list', { method: 'GET' })
+      .then((reponse) => reponse.json());
     setCatalogs(
       jsonReponse.map((categoryItem: any) => ({
         ...categoryItem,

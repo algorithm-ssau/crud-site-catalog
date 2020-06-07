@@ -132,9 +132,7 @@ export default function MainPageComponent({
   };
 
   const loadCurrentCatalog = async (catalogId: string) => {
-    const response = await fetch(
-      `https://buoyant-habitat-279114.df.r.appspot.com/category/${catalogId}`
-    );
+    const response = await fetch(`/category/${catalogId}`);
     const json = await response.json();
     setProductItems(
       json.products.map((producsItem: any) => ({

@@ -4,7 +4,7 @@ const AboutPage = () => {
   const [pageHtml, setPageHtml] = useState('');
 
   const getAboutPage = async () => {
-    const response = await fetch("https://fllaass.df.r.appspot.com/about");
+    const response = await fetch('/about');
     setPageHtml(await response.text());
   };
 

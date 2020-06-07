@@ -2,7 +2,7 @@
   "name": "front",
   "version": "0.1.0",
   "private": true,
-  "proxy": "https://buoyant-habitat-279114.df.r.appspot.com",
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@material-ui/core": "^4.9.10",
     "@material-ui/icons": "^4.9.1",
@@ -52,7 +52,6 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-react-hooks": "^1.7.0",
-    "http-proxy-middleware": "^1.0.4",
     "node-sass": "^4.13.1"
   }
 }

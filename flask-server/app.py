@@ -8,8 +8,7 @@ mongo = PyMongo(app)
 
 @app.route('/about')
 def about():
-    temp = mongo.db.products.find({})
-    return render_template("task.html", temp=list(temp))
+    return render_template("task.html")
 
 @app.route('/category/create', methods=["POST"])
 def createCatalog():

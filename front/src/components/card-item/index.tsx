@@ -19,7 +19,9 @@ export interface CardItemPrpos {
 }
 
 const deleteItem = (id: string) => {
-  fetch(`/products/${id}`, { method: 'DELETE' });
+  fetch(`https://buoyant-habitat-279114.df.r.appspot.com/products/${id}`, {
+    method: "DELETE",
+  });
 };
 
 

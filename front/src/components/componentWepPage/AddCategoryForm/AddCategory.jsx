@@ -57,7 +57,7 @@ class AddCategory extends Component {
     e.preventDefault();
     let userData = this.state.newCategory;
 
-    fetch("/category/create", {
+    fetch('https://buoyant-habitat-279114.df.r.appspot.com/category/create', {
       method: "POST",
       body: JSON.stringify(userData),
       headers: {

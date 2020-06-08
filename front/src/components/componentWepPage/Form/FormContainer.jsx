@@ -152,7 +152,8 @@ class FormContainer extends Component {
     e.preventDefault();
     const userData = this.state.newProduct;
 
-    fetch('/products/create', {
+    fetch('https://buoyant-habitat-279114.df.r.appspot.com/products/create'
+   , {
       method: 'POST',
       body: JSON.stringify(userData),
       headers: {

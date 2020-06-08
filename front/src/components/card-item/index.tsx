@@ -45,7 +45,7 @@ const CardItem: React.FC<CardItemPrpos> = ({
       <form>
         <TextField
           title={"Description: "}
-          rows={1}
+          rows={3}
           value={"Описание: "+description}
          
           placeholder={"Description: "}

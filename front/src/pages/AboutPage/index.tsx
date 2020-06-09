@@ -4,7 +4,7 @@ const AboutPage = () => {
   const [pageHtml, setPageHtml] = useState('');
 
   const getAboutPage = async () => {
-    const response = await fetch('http://buoyant-habitat-279114.df.r.appspot.com/about');
+    const response = await fetch('https://buoyant-habitat-279114.df.r.appspot.com/about');
     setPageHtml(await response.text());
   };
 

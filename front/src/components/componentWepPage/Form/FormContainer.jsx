@@ -152,14 +152,14 @@ class FormContainer extends Component {
     e.preventDefault();
     const userData = this.state.newProduct;
 
-    fetch('https://buoyant-habitat-279114.df.r.appspot.com/products/create'
-   , {
-      method: 'POST',
-      body: JSON.stringify(userData),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    }).then((response) => {
+    fetch('http://buoyant-habitat-279114.df.r.appspot.com/products/create',
+      {
+        method: 'POST',
+        body: JSON.stringify(userData),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }).then((response) => {
       response.json().then((data) => {
         console.log(`Successful${data}`);
       });
@@ -175,7 +175,7 @@ class FormContainer extends Component {
         category: '',
         description: '',
         file: '',
-       },
+      },
     });
   }
 
